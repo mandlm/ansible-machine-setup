@@ -8,10 +8,10 @@
     - name: install basic packages
       package:
           name:
-            - atop
             - curl
             - git
             - neovim
+            - ripgrep
             - tmux
             - tree
             - zsh
