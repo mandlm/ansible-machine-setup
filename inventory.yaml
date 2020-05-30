@@ -1,0 +1,7 @@
+---
+all:
+    hosts:
+        wsl-debian:
+            ansible_connection: paramiko_ssh
+            ansible_host: localhost
+            ansible_user: root
