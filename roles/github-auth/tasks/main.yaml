@@ -1,0 +1,6 @@
+---
+- name: app ssh pubkey to github account
+  github_key:
+      name: Added by ansible
+      token: "{{ lookup('env', 'GITHUB_ACCESS_TOKEN') }}"
+      pubkey: "{{ account.ssh_public_key }}"

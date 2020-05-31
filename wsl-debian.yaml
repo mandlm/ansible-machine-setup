@@ -8,6 +8,7 @@
   roles:
     - update-packages
     - user-account
+    - github-auth
     - misc
     - oh-my-zsh
     - neovim
