@@ -1,5 +1,11 @@
 ---
-- name: app ssh pubkey to github account
+- name: install required packages
+  package:
+      name:
+        - ca-certificates
+      state: latest
+
+- name: add ssh pubkey to github account
   github_key:
       name: Added by ansible
       token: "{{ lookup('env', 'GITHUB_ACCESS_TOKEN') }}"
