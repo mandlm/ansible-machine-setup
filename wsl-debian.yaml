@@ -10,6 +10,15 @@
     - update-packages
     - user-account
     - github-auth
-    - misc
-    - oh-my-zsh
+    - dotfiles
+    - git
+    - tmux
+    - zsh
     - neovim
+  tasks:
+    - name: install tools
+      package:
+          name:
+            - aptitude
+            - tree
+          state: latest

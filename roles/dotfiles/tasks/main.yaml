@@ -1,0 +1,16 @@
+---    
+- name: install required packages
+  package:
+      name:
+        - git
+      state: latest
+
+- name: clone dotfiles
+  become_user: "{{ account.name }}"
+  git:
+      repo: git@github.com:mandlm/dotfiles.git
+      dest: "{{ dotfiles }}"
+      accept_hostkey: yes
+      update: no
+
+

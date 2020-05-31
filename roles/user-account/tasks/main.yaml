@@ -1,18 +1,10 @@
 ---
-- name: install required packages
-  package:
-      name:
-        - zsh
-      state: latest
-
 - name: setup user account
   user:
       name: "{{ username }}"
       password: "{{ password }}"
       generate_ssh_key: yes
       create_home: yes
-      shell: /usr/bin/zsh
       state: present
       update_password: always
   register: account
-

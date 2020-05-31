@@ -1,0 +1,14 @@
+---    
+- name: install required packages
+  package:
+      name:
+        - git
+      state: latest
+
+- name: install git config
+  become_user: "{{ account.name }}"
+  shell:
+      chdir: "{{ dotfiles }}/git"
+      cmd: ./install.sh
+      creates: "{{ account.home }}/.gitconfig"
+
