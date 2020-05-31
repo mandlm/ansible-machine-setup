@@ -6,10 +6,12 @@
 ## WSL Debian setup
 
 cmd.exe:
+
 	wsl.exe --unregister Debian
 	Debian.exe install --root
 
 root@debian:
+
 	apt-get update
 	apt-get -y install openssh-server python3
 	service ssh start
