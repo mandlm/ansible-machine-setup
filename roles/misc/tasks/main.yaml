@@ -2,6 +2,7 @@
 - name: install basic packages
   package:
       name:
+        - aptitude
         - git
         - tmux
         - tree
