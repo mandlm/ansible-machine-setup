@@ -15,10 +15,4 @@
     - tmux
     - zsh
     - neovim
-  tasks:
-    - name: install tools
-      package:
-          name:
-            - aptitude
-            - tree
-          state: latest
+    - tools

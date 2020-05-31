@@ -1,0 +1,8 @@
+---
+- name: install tools
+  package:
+      name:
+        - aptitude
+        - tree
+      state: latest
+
