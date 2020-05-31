@@ -1,0 +1,33 @@
+---
+- name: install required packages
+  package:
+      name:
+        - neovim
+        - ripgrep
+      state: latest
+
+- name: create nvim plugin directory
+  become_user: "{{ account.name }}"
+  file:
+      path: "{{ account.home }}/.local/share/nvim/site/autoload/"
+      state: directory
+
+- name: install vim-plug
+  become_user: "{{ account.name }}"
+  get_url:
+      url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+      dest: "{{ account.home }}/.local/share/nvim/site/autoload/plug.vim"
+
+- name: install nvim config
+  become_user: "{{ account.name }}"
+  shell:
+      chdir: "{{ account.home }}/.dotfiles/nvim"
+      cmd: ./install.sh
+      creates: "{{ account.home }}/.config/nvim/init.vim"
+
+- name: install nvim plugins
+  become_user: "{{ account.name }}"
+  shell:
+      cmd: nvim +PlugInstall +PlugUpdate +qall
+
+

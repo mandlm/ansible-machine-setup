@@ -1,0 +1,8 @@
+---
+- name: update installed packages
+  apt:
+      name: "*"
+      state: latest
+      autoclean: yes
+      autoremove: yes
+      update_cache: yes

@@ -4,94 +4,10 @@
       username: mandlm
       password: $6$hfdjshdfkajdsh$DRgmUOQfm9DnvSv.l.WuQJpextzBpX5BCbSncXTts5dHazvKRxj8qUYAjju2/AGZqKOt8PTLC7w9yRR68ZHCG1 
   become: yes
-  tasks:
-    - name: install basic packages
-      package:
-          name:
-            - curl
-            - git
-            - neovim
-            - ripgrep
-            - tmux
-            - tree
-            - zsh
-          state: latest
-          update_cache: yes
-
-    - name: setup user account
-      user:
-          name: "{{ username }}"
-          password: "{{ password }}"
-          generate_ssh_key: yes
-          create_home: yes
-          shell: /usr/bin/zsh
-          state: present
-          update_password: always
-      register: account
-
-    - name: clone dotfiles
-      become_user: "{{ account.name }}"
-      git:
-          repo: https://github.com/mandlm/dotfiles.git
-          dest: "{{ account.home }}/.dotfiles"
-          accept_hostkey: yes
-          update: no
-
-    - name: install zsh config
-      become_user: "{{ account.name }}"
-      shell:
-          chdir: "{{ account.home }}/.dotfiles/zsh"
-          cmd: ./install.sh
-          creates: "{{ account.home }}/.zshrc"
-      
-    - name: install tmux plugin manager
-      become_user: "{{ account.name }}"
-      git:
-          repo: https://github.com/tmux-plugins/tpm.git
-          dest: "{{ account.home }}/.tmux/plugins/tpm"
-          accept_hostkey: yes
-          update: no
-
-    - name: install tmux config
-      become_user: "{{ account.name }}"
-      shell:
-          chdir: "{{ account.home }}/.dotfiles/tmux"
-          cmd: ./install.sh
-          creates: "{{ account.home }}/.tmux.conf"
-
-    - name: install git config
-      become_user: "{{ account.name }}"
-      shell:
-          chdir: "{{ account.home }}/.dotfiles/git"
-          cmd: ./install.sh
-          creates: "{{ account.home }}/.gitconfig"
-
-    - name: install nvim config
-      become_user: "{{ account.name }}"
-      shell:
-          chdir: "{{ account.home }}/.dotfiles/nvim"
-          cmd: ./install.sh
-          creates: "{{ account.home }}/.config/nvim/init.vim"
-
-    - name: install oh-my-zsh
-      become_user: "{{ account.name }}"
-      shell: 
-          cmd: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --keep-zshrc"
-          creates: "{{ account.home }}/.oh-my-zsh"
-
-    - name: create nvim plugin directory
-      become_user: "{{ account.name }}"
-      file:
-          path: "{{ account.home }}/.local/share/nvim/site/autoload/"
-          state: directory
-
-    - name: install vim-plug
-      become_user: "{{ account.name }}"
-      get_url:
-          url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-          dest: "{{ account.home }}/.local/share/nvim/site/autoload/plug.vim"
-
-    - name: install nvim plugins
-      become_user: "{{ account.name }}"
-      shell:
-          cmd: nvim +PlugInstall +PlugUpdate +qall
+  gather_facts: no
+  roles:
+    - update-packages
+    - user-account
+    - misc
+    - oh-my-zsh
+    - neovim

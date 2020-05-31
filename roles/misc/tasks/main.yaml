@@ -1,0 +1,46 @@
+---    
+- name: install basic packages
+  package:
+      name:
+        - git
+        - tmux
+        - tree
+      state: latest
+
+- name: clone dotfiles
+  become_user: "{{ account.name }}"
+  git:
+      repo: https://github.com/mandlm/dotfiles.git
+      dest: "{{ account.home }}/.dotfiles"
+      accept_hostkey: yes
+      update: no
+
+- name: install zsh config
+  become_user: "{{ account.name }}"
+  shell:
+      chdir: "{{ account.home }}/.dotfiles/zsh"
+      cmd: ./install.sh
+      creates: "{{ account.home }}/.zshrc"
+  
+- name: install tmux plugin manager
+  become_user: "{{ account.name }}"
+  git:
+      repo: https://github.com/tmux-plugins/tpm.git
+      dest: "{{ account.home }}/.tmux/plugins/tpm"
+      accept_hostkey: yes
+      update: no
+
+- name: install tmux config
+  become_user: "{{ account.name }}"
+  shell:
+      chdir: "{{ account.home }}/.dotfiles/tmux"
+      cmd: ./install.sh
+      creates: "{{ account.home }}/.tmux.conf"
+
+- name: install git config
+  become_user: "{{ account.name }}"
+  shell:
+      chdir: "{{ account.home }}/.dotfiles/git"
+      cmd: ./install.sh
+      creates: "{{ account.home }}/.gitconfig"
+
