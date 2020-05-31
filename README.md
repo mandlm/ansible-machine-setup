@@ -1,3 +1,8 @@
+## Invocation
+
+	export GITHUB_ACCESS_TOKEN=xxxxxxxxx
+	ansible-playbook --inventory inventory.yaml wsl-debian.yaml 
+
 ## WSL Debian setup
 
 cmd.exe:
