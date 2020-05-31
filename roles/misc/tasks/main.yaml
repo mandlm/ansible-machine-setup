@@ -10,15 +10,15 @@
 - name: clone dotfiles
   become_user: "{{ account.name }}"
   git:
-      repo: https://github.com/mandlm/dotfiles.git
-      dest: "{{ account.home }}/.dotfiles"
+      repo: git@github.com:mandlm/dotfiles.git
+      dest: "{{ dotfiles }}"
       accept_hostkey: yes
       update: no
 
 - name: install zsh config
   become_user: "{{ account.name }}"
   shell:
-      chdir: "{{ account.home }}/.dotfiles/zsh"
+      chdir: "{{ dotfiles }}/zsh"
       cmd: ./install.sh
       creates: "{{ account.home }}/.zshrc"
   
@@ -33,14 +33,14 @@
 - name: install tmux config
   become_user: "{{ account.name }}"
   shell:
-      chdir: "{{ account.home }}/.dotfiles/tmux"
+      chdir: "{{ dotfiles }}/tmux"
       cmd: ./install.sh
       creates: "{{ account.home }}/.tmux.conf"
 
 - name: install git config
   become_user: "{{ account.name }}"
   shell:
-      chdir: "{{ account.home }}/.dotfiles/git"
+      chdir: "{{ dotfiles }}/git"
       cmd: ./install.sh
       creates: "{{ account.home }}/.gitconfig"
 

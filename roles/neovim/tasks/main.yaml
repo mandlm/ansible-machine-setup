@@ -21,7 +21,7 @@
 - name: install nvim config
   become_user: "{{ account.name }}"
   shell:
-      chdir: "{{ account.home }}/.dotfiles/nvim"
+      chdir: "{{ dotfiles }}/nvim"
       cmd: ./install.sh
       creates: "{{ account.home }}/.config/nvim/init.vim"
 
