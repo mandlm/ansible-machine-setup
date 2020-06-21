@@ -1,14 +1,12 @@
 ---
-- hosts: wsl-debian
+- hosts: arch
   vars:
       username: mandlm
       password: $6$hfdjshdfkajdsh$DRgmUOQfm9DnvSv.l.WuQJpextzBpX5BCbSncXTts5dHazvKRxj8qUYAjju2/AGZqKOt8PTLC7w9yRR68ZHCG1 
       dotfiles: "~/.dotfiles"
   become: yes
   roles:
-    - update-packages
     - user-account
-    - github-auth
     - dotfiles
     - git
     - tmux

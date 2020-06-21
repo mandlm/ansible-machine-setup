@@ -1,8 +1,12 @@
 ---
-- name: install tools
+- name: install common tools
+  package:
+      name:
+        - tree
+      state: latest
+- name: install debian tools
   package:
       name:
         - aptitude
-        - tree
       state: latest
-
+  when: ansible_facts["os_family"] == "Debian"
