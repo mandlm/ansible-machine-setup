@@ -1,0 +1,29 @@
+---    
+- name: ensure user/bin exists
+  become_user: "{{ account.name }}"
+  file:
+      path: "/home/{{ account.name }}/bin"
+      state: directory
+      mode: "0777"
+
+- name: download script
+  become_user: "{{ account.name }}"
+  get_url:
+      url: https://github.com/diablodale/pinentry-wsl-ps1/raw/master/pinentry-wsl-ps1.sh
+      dest: "/home/{{ account.name }}/bin/pinentry-wsl-ps1.sh"
+      mode: "0755"
+
+- name: ensure gpg-agent is installed
+  apt:
+      name: gpg-agent
+      state: latest
+
+- name: enable script in gpg-agent
+  become_user: "{{ account.name }}"
+  lineinfile:
+      path: "/home/{{ account.name }}/.gnupg/gpg-agent.conf"
+      create: yes
+      regexp: "^pinentry-program"
+      line: "pinentry-program /home/{{ account.name }}/bin/pinentry-wsl-ps1.sh"
+
+
