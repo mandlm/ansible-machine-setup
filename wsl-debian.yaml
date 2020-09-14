@@ -17,3 +17,4 @@
     - tools
     - dev-machine
     - pinentry-wsl
+    - dockerd-wsl

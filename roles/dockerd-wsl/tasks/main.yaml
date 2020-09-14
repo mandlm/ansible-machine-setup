@@ -1,0 +1,18 @@
+---    
+# # Only for wsl-1
+# - name: set docker-host variable
+#   become_user: "{{ account.name }}"
+#   lineinfile:
+#       path: "/home/{{ account.name }}/.zshrc"
+#       regexp: "^export DOCKER_HOST="
+#       line: "export DOCKER_HOST=tcp://localhost:2375"
+
+- name: install docker tools
+  package:
+      name:
+          - docker.io
+          - docker-compose
+      state: latest
+
+
+
