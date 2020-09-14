@@ -8,7 +8,7 @@
   roles:
     - update-packages
     - user-account
-    - github-auth
+    # - github-auth
     - dotfiles
     - git
     - tmux
