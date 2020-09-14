@@ -18,3 +18,4 @@
     - dev-machine
     - pinentry-wsl
     - dockerd-wsl
+    - dircolors-wsl

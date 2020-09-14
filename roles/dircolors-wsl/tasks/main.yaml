@@ -1,0 +1,15 @@
+---    
+- name: clone dircolors repo
+  become_user: "{{ account.name }}"
+  git:
+      repo: git@github.com:seebi/dircolors-solarized.git
+      dest: "/home/{{ account.name }}/.dircolors-solarized"
+      accept_hostkey: yes
+      update: yes
+
+- name: enable dircolors
+  become_user: "{{ account.name }}"
+  lineinfile:
+      path: "/home/{{ account.name }}/.zshrc"
+      regexp: "eval `dircolors"
+      line: "[ -f ~/.dircolors-solarized/dircolors.256dark ] && eval `dircolors ~/.dircolors-solarized/dircolors.256dark`"
