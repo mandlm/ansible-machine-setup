@@ -15,4 +15,5 @@
     - zsh
     - neovim
     - tools
+    - dev-machine
     - pinentry-wsl
