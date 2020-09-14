@@ -5,7 +5,7 @@
         - cmake
         - llvm
         - clang
-        - python-pip
+        - python3-pip
       state: latest
 
 - name: install python packages
@@ -16,3 +16,4 @@
         - python-language-server
       state: latest
       extra_args: --user
+      executable: pip3
