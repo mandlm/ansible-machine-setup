@@ -3,7 +3,7 @@
   package:
       name:
         - python3
-        - python-pynvim
+        - python-neovim
         - neovim
         - ripgrep
       state: latest
