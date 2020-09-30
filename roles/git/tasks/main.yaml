@@ -3,6 +3,7 @@
   package:
       name:
         - git
+        - git-flow
       state: latest
 
 - name: install git config
