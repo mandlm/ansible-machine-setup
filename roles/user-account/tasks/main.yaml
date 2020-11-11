@@ -8,3 +8,19 @@
       state: present
       update_password: always
   register: account
+
+- name: ensure .ssh exists
+  become_user: "{{ account.name }}"
+  file:
+      path: "/home/{{ account.name }}/.ssh"
+      state: directory
+      mode: "0700"
+
+- name: copy ssh key
+  become_user: "{{ account.name }}"
+  copy:
+      src: "{{ item }}"
+      dest: "/home/{{ account.name }}/.ssh/"
+      mode: "0600"
+  with_fileglob: 
+    - "/mnt/c/Users/mandl/.ssh/id_rsa*"
