@@ -9,6 +9,7 @@
     - update-packages
     - user-account
     # - github-auth
+    - wsl-default-user
     - dotfiles
     - git
     - tmux

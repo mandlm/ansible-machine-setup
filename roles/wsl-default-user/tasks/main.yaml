@@ -1,0 +1,7 @@
+---
+- name: set wsl default user to {{ username }}
+  ini_file:
+      path: /etc/wsl.conf
+      section: user
+      option: default
+      value: "{{ username }}"
