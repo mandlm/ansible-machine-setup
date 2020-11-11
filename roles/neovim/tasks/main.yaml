@@ -1,12 +1,36 @@
 ---
-- name: install required packages
+- name: install prerequisites
   package:
       name:
-        - python3
+        - nodejs
+        - npm
         - python-neovim
-        - neovim
+        - python3
         - ripgrep
       state: latest
+
+- name: download neovim appimage
+  get_url:
+      url: https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+      dest: /tmp
+      mode: "0755"
+
+- name: extract neovim appimage
+  shell: |
+      rm -rf /usr/local/bin/nvim.appimage
+      /tmp/nvim.appimage --appimage-extract
+      mv squashfs-root /usr/local/bin/nvim.appimage
+      chmod -R 4755 /usr/local/bin/nvim.appimage
+      chmod -R -s /usr/local/bin/nvim.appimage
+      rm -f /tmp/nvim.appimage
+  args:
+      chdir: /tmp
+
+- name: install neovim link
+  alternatives:
+      name: nvim
+      path: /usr/local/bin/nvim.appimage/usr/bin/nvim
+      link: /usr/bin/nvim
 
 - name: create nvim plugin directory
   become_user: "{{ account.name }}"
