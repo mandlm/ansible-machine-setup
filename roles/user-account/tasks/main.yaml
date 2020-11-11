@@ -3,10 +3,10 @@
   user:
       name: "{{ username }}"
       password: "{{ password }}"
-      generate_ssh_key: yes
       create_home: yes
       state: present
       update_password: always
+      groups: sudo
   register: account
 
 - name: ensure .ssh exists
