@@ -4,7 +4,7 @@
   file:
       path: "/home/{{ account.name }}/bin"
       state: directory
-      mode: "0777"
+      mode: "0744"
 
 - name: download script
   become_user: "{{ account.name }}"
@@ -24,6 +24,13 @@
   apt:
       name: gpg-agent
       state: latest
+
+- name: ensure user/.gnupg exists
+  become_user: "{{ account.name }}"
+  file:
+      path: "/home/{{ account.name }}/.gnupg"
+      state: directory
+      mode: "0700"
 
 - name: enable script in gpg-agent
   become_user: "{{ account.name }}"
