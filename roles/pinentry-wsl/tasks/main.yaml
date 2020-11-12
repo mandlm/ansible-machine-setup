@@ -18,7 +18,7 @@
   lineinfile:
       path: "/home/{{ account.name }}/bin/pinentry-wsl-ps1.sh"
       regexp: "^PERSISTENCE="
-      line: "PERSISTENCE=\"1\""
+      line: "PERSISTENCE=\"Session\""
 
 - name: ensure gpg-agent is installed
   apt:
