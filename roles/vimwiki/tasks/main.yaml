@@ -1,0 +1,24 @@
+---    
+- name: ensure directory exists
+  become_user: "{{ account.name }}"
+  file:
+      path: "{{ account.home }}/vimwiki/"
+      state: directory
+      mode: "0700"
+
+- name: clone personal wiki
+  become_user: "{{ account.name }}"
+  git:
+      repo: ssh://git@git.molez.org:222/mandlm/vimwiki.git
+      dest: "{{ account.home }}/vimwiki/personal"
+      accept_hostkey: yes
+      update: no
+
+- name: clone swp wiki
+  become_user: "{{ account.name }}"
+  git:
+      repo: git@gitlab.com:mandlm/vimwiki.git
+      dest: "{{ account.home }}/vimwiki/swp"
+      accept_hostkey: yes
+      update: no
+

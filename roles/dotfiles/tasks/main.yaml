@@ -13,4 +13,16 @@
       accept_hostkey: yes
       update: no
 
+- name: ensure user/bin exists
+  become_user: "{{ account.name }}"
+  file:
+      path: "/home/{{ account.name }}/bin"
+      state: directory
+      mode: "0744"
 
+- name: install bin scripts
+  become_user: "{{ account.name }}"
+  shell:
+      chdir: "{{ dotfiles }}/bin"
+      cmd: ./install.sh
+      creates: "{{ account.home }}/bin/wiki-sync"

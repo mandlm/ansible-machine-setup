@@ -15,6 +15,7 @@
     - tmux
     - zsh
     - neovim
+    - vimwiki
     - tools
     - dev-machine
     - pinentry-wsl
