@@ -1,13 +1,20 @@
 ---
-- name: install prerequisites
+- name: install prerequisites (apt)
   package:
       name:
         - nodejs
         - npm
-        - python-neovim
         - python3
         - ripgrep
       state: latest
+
+- name: install prerequisites (pip)
+  become_user: "{{ account.name }}"
+  pip:
+      name:
+          - pynvim
+      state: latest
+      extra_args: --user
 
 - name: download neovim appimage
   get_url:
