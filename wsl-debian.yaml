@@ -19,5 +19,6 @@
     - tools
     - dev-machine
     - pinentry-wsl
+    - wsl-open
     - dockerd-wsl
     - dircolors-wsl

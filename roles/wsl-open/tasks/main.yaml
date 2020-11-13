@@ -1,0 +1,19 @@
+---    
+- name: download script
+  become_user: "{{ account.name }}"
+  get_url:
+      url: https://raw.githubusercontent.com/4U6U57/wsl-open/master/wsl-open.sh
+      dest: "{{ account.home }}/bin"
+      mode: "0755"
+
+- name: install xdg-open
+  package:
+      name: xdg-utils
+      state: latest
+
+- name: set BROWSER variable
+  become_user: "{{ account.name }}"
+  lineinfile:
+      path: "/home/{{ account.name }}/.zshrc"
+      regexp: "^export BROWSER="
+      line: "export BROWSER=wsl-open.sh"
