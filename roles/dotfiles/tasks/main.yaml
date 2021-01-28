@@ -3,6 +3,7 @@
   package:
       name:
         - git
+        - openssh
       state: latest
 
 - name: clone dotfiles

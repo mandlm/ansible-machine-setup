@@ -1,0 +1,22 @@
+---
+- name: install sudo
+  package:
+      name:
+        - sudo
+      state: latest
+
+- name: add user to sudoer group
+  user:
+      name: "{{ account.name }}"
+      groups: "{{ sudo_group }}"
+      append: yes
+
+- name: activate sudoers group
+  lineinfile:
+      dest: /etc/sudoers
+      state: present
+      regexp: "^%{{ sudo_group }}"
+      line: "%{{ sudo_group }} ALL=(ALL) ALL"
+      insertafter: "^#\\s*%{{ sudo_group }}"
+      firstmatch: true
+      validate: "visudo -cf %s"

@@ -4,6 +4,7 @@
       name:
         - tree
       state: latest
+
 - name: install debian tools
   package:
       name:

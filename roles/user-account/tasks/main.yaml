@@ -6,7 +6,6 @@
       create_home: yes
       state: present
       update_password: always
-      groups: sudo
   register: account
 
 - name: ensure .ssh exists
@@ -19,8 +18,20 @@
 - name: copy ssh key
   become_user: "{{ account.name }}"
   copy:
-      src: "{{ item }}"
+      src: "ssh/"
       dest: "/home/{{ account.name }}/.ssh/"
       mode: "0600"
-  with_fileglob: 
-    - "/mnt/c/Users/mandl/.ssh/id_rsa*"
+
+- name: ensure .gnupg exists
+  become_user: "{{ account.name }}"
+  file:
+      path: "/home/{{ account.name }}/.gnupg"
+      state: directory
+      mode: "0700"
+
+- name: copy gpg keys
+  become_user: "{{ account.name }}"
+  copy:
+      src: "gnupg/"
+      dest: "/home/{{ account.name }}/.gnupg/"
+      mode: "0600"

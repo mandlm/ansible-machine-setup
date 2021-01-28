@@ -7,10 +7,11 @@
   become: yes
   roles:
     - user-account
+    - sudo
     - dotfiles
     - git
     - tmux
     - zsh
     - neovim
+    - vimwiki
     - tools
-    - dev-machine
