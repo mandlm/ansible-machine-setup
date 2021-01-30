@@ -1,0 +1,22 @@
+---
+- name: install packages
+  package:
+      name:
+        - wayland
+        - lightdm
+        - lightdm-gtk-greeter
+        - sway
+        - bemenu
+        - alsa-utils
+        - alacritty
+      state: latest
+
+- name: activate display manager
+  systemd:
+      name: sddm
+      enabled: yes
+
+- name: set xorg keyboard layout
+  command:
+      cmd: localectl --no-convert set-x11-keymap de pc105 nodeadkeys
+      creates: /etc/X11/xorg.conf.d/00-keyboard.conf

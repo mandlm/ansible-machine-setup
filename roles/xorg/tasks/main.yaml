@@ -1,0 +1,25 @@
+---
+- name: install packages
+  package:
+      name:
+        - xorg
+        - xorg-server
+        - xorg-xinit
+        - xf86-video-intel
+        - xf86-video-fbdev
+        - lightdm
+        - lightdm-gtk-greeter
+        - i3-wm
+        - dmenu
+        - alacritty
+      state: latest
+
+- name: activate display manager
+  systemd:
+      name: lightdm
+      enabled: yes
+
+- name: set keyboard layout
+  command:
+      cmd: localectl --no-convert set-x11-keymap de pc105 nodeadkeys
+      creates: /etc/X11/xorg.conf.d/00-keyboard.conf
