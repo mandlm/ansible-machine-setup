@@ -22,6 +22,7 @@
     - docker
     - wayland
     - aur-builder
+    - zoom
 
   tasks:
     - name: Install common user applications
