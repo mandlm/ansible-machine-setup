@@ -1,0 +1,21 @@
+---
+- name: setup account
+  user:
+      name: aur_builder
+      create_home: no
+  register: aur_builder
+
+- name: install tools
+  package:
+      name: "{{ item }}"
+      state: latest
+  loop:
+      - fakeroot
+
+- name: allow sudo pacman
+  lineinfile:
+      path: /etc/sudoers.d/aur_builder
+      state: present
+      line: "{{ aur_builder.name }} ALL=(ALL) NOPASSWD: /usr/bin/pacman"
+      validate: /usr/bin/visudo -cf %s
+      create: yes

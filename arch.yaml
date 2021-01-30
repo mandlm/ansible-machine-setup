@@ -21,6 +21,7 @@
     - acpid
     - docker
     - wayland
+    - aur-builder
 
   tasks:
     - name: Install common user applications
