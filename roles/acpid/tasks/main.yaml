@@ -1,0 +1,11 @@
+---
+- name: install packages
+  package:
+      name: acpid
+      state: latest
+
+- name: activate daemon
+  systemd:
+      name: acpid
+      enabled: yes
+      state: started
