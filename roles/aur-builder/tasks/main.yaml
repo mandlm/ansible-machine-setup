@@ -10,6 +10,7 @@
       name: "{{ item }}"
       state: latest
   loop:
+      - base-devel
       - fakeroot
 
 - name: allow sudo pacman
