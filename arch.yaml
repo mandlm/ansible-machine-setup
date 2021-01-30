@@ -19,6 +19,7 @@
     - vimwiki
     - tools
     - acpid
+    - docker
     - wayland
 
   tasks:
