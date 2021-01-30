@@ -23,6 +23,8 @@
     - wayland
     - aur-builder
     - zoom
+    - git-flow
+    - slack
 
   tasks:
     - name: Install common user applications
