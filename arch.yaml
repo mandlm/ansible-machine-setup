@@ -19,6 +19,7 @@
     - vimwiki
     - tools
     - acpid
+    - cups
     - docker
     - wayland
     - aur-builder

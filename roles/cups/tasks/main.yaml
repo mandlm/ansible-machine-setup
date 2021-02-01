@@ -1,0 +1,14 @@
+---
+- name: install packages
+  package:
+      name: "{{ item }}"
+      state: latest
+  loop:
+    - cups
+    - ghostscript
+
+- name: activate daemon
+  systemd:
+      name: cups
+      enabled: yes
+      state: started
