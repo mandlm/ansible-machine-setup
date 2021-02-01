@@ -1,13 +1,16 @@
 ---
 - name: install common tools
   package:
-      name:
-        - tree
+      name: "{{ item }}"
       state: latest
+  loop:
+    - tree
+    - yarn
 
 - name: install debian tools
   package:
-      name:
-        - aptitude
+      name: "{{ item }}"
       state: latest
+  loop:
+    - aptitude
   when: ansible_facts["os_family"] == "Debian"
