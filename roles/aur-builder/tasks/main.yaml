@@ -3,6 +3,7 @@
   user:
       name: aur_builder
       create_home: no
+      shell: /usr/bin/nologin
   register: aur_builder
 
 - name: install tools
