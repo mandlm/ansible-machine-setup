@@ -59,3 +59,13 @@
       regexp: "^default-cache-ttl "
       line: "default-cache-ttl 60480000"
 
+- name: setup xprofile
+  become_user: "{{ account.name }}"
+  lineinfile:
+      path: "/home/{{ account.name }}/.xprofile"
+      regexp: "^xsetroot "
+      line: "xsetroot -solid \"#000000\""
+      mode: 0644
+      create: yes
+
+
