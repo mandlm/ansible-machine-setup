@@ -35,3 +35,27 @@
       src: "gnupg/"
       dest: "/home/{{ account.name }}/.gnupg/"
       mode: "0600"
+
+- name: set gpg-agent pinentry-program
+  become_user: "{{ account.name }}"
+  lineinfile:
+      path: "/home/{{ account.name }}/.gnupg/gpg-agent.conf"
+      regexp: "^pinentry-program "
+      line: "pinentry-program /usr/bin/pinentry-gtk-2"
+      mode: 0644
+      create: yes
+
+- name: set gpg-agent max-cache-ttl
+  become_user: "{{ account.name }}"
+  lineinfile:
+      path: "/home/{{ account.name }}/.gnupg/gpg-agent.conf"
+      regexp: "^max-cache-ttl "
+      line: "max-cache-ttl 60480000"
+
+- name: set gpg-agent default-cache-ttl
+  become_user: "{{ account.name }}"
+  lineinfile:
+      path: "/home/{{ account.name }}/.gnupg/gpg-agent.conf"
+      regexp: "^default-cache-ttl "
+      line: "default-cache-ttl 60480000"
+
