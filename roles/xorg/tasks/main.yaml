@@ -1,17 +1,19 @@
 ---
 - name: install packages
   package:
-      name:
-        - xorg
-        - xorg-server
-        - xorg-xinit
-        - xf86-video-intel
-        - xf86-video-fbdev
-        - sddm
-        - i3-wm
-        - dmenu
-        - alacritty
+      name: "{{ item }}"
       state: latest
+  loop:
+    - xorg
+    - xorg-server
+    - xorg-xinit
+    - xf86-video-intel
+    - xf86-video-fbdev
+    - sddm
+    - i3-wm
+    - i3status
+    - dmenu
+    - alacritty
 
 - name: activate display manager
   systemd:
