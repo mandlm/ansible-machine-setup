@@ -16,6 +16,15 @@
     - dmenu
     - alacritty
 
+- name: configure sddm
+  ini_file:
+      path: /etc/sddm.conf.d/uid.conf
+      section: Users
+      option: HideShells
+      value: /usr/bin/nologin,/sbin/nologin,/bin/false
+      mode: 0644
+      create: yes
+
 - name: activate display manager
   systemd:
       name: sddm
