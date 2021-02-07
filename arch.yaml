@@ -21,7 +21,7 @@
     - acpid
     - cups
     - docker
-    - wayland
+    - xorg
     - aur-builder
     - zoom
     - git-flow

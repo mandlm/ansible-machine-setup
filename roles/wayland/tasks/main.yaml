@@ -3,8 +3,7 @@
   package:
       name:
         - wayland
-        - lightdm
-        - lightdm-gtk-greeter
+        - sddm
         - sway
         - bemenu
         - alsa-utils

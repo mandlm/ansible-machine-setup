@@ -7,8 +7,7 @@
         - xorg-xinit
         - xf86-video-intel
         - xf86-video-fbdev
-        - lightdm
-        - lightdm-gtk-greeter
+        - sddm
         - i3-wm
         - dmenu
         - alacritty
@@ -16,7 +15,7 @@
 
 - name: activate display manager
   systemd:
-      name: lightdm
+      name: sddm
       enabled: yes
 
 - name: set keyboard layout
