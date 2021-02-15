@@ -90,3 +90,18 @@
       etype: user
       permissions: r
       state: present
+
+- name: ensure i3status config-dir exists
+  become_user: "{{ account.name }}"
+  file:
+      path: "/home/{{ account.name }}/.config/i3status"
+      state: directory
+      mode: "0700"
+
+- name: install i3status config
+  become_user: "{{ account.name }}"
+  copy:
+      src: i3status/config
+      dest: "/home/{{ account.name }}/.config/i3status/config"
+      mode: "0644"
+
