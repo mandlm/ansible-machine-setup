@@ -68,4 +68,25 @@
       mode: 0644
       create: yes
 
+- name: install user icon
+  become_user: "{{ account.name }}"
+  copy:
+      src: face.icon
+      dest: "/home/{{ account.name }}/.face.icon"
+      mode: "0644"
 
+- name: grant sddm read permission to home
+  acl:
+      path: "/home/{{ account.name }}/"
+      entity: sddm
+      etype: user
+      permissions: x
+      state: present
+
+- name: grant sddm read permission user icon
+  acl:
+      path: "/home/{{ account.name }}/.face.icon"
+      entity: sddm
+      etype: user
+      permissions: r
+      state: present
