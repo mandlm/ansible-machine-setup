@@ -1,8 +1,8 @@
 ---
 - name: install packages
   package:
-      name: "{{ item }}"
-      state: latest
+    name: "{{ item }}"
+    state: latest
   loop:
     - xorg
     - xorg-server
@@ -13,24 +13,26 @@
     - sddm
     - i3-wm
     - i3status
+    - xautolock
+    - i3lock
     - dmenu
     - alacritty
 
 - name: configure sddm
   ini_file:
-      path: /etc/sddm.conf.d/uid.conf
-      section: Users
-      option: HideShells
-      value: /usr/bin/nologin,/sbin/nologin,/bin/false
-      mode: 0644
-      create: yes
+    path: /etc/sddm.conf.d/uid.conf
+    section: Users
+    option: HideShells
+    value: /usr/bin/nologin,/sbin/nologin,/bin/false
+    mode: 0644
+    create: yes
 
 - name: activate display manager
   systemd:
-      name: sddm
-      enabled: yes
+    name: sddm
+    enabled: yes
 
 - name: set keyboard layout
   command:
-      cmd: localectl --no-convert set-x11-keymap de pc105 nodeadkeys
-      creates: /etc/X11/xorg.conf.d/00-keyboard.conf
+    cmd: localectl --no-convert set-x11-keymap de pc105 nodeadkeys
+    creates: /etc/X11/xorg.conf.d/00-keyboard.conf
