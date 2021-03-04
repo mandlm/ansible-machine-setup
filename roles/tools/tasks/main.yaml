@@ -4,6 +4,7 @@
       name: "{{ item }}"
       state: latest
   loop:
+    - cmake
     - tree
     - unzip
     - yarn
