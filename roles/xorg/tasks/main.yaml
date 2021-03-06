@@ -17,6 +17,7 @@
     - i3lock
     - dmenu
     - alacritty
+    - flameshot
 
 - name: configure sddm
   ini_file:
