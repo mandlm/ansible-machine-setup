@@ -2,9 +2,9 @@
 - hosts: arch
 
   vars:
-      username: mandlm
-      password: $6$hfdjshdfkajdsh$DRgmUOQfm9DnvSv.l.WuQJpextzBpX5BCbSncXTts5dHazvKRxj8qUYAjju2/AGZqKOt8PTLC7w9yRR68ZHCG1 
-      dotfiles: "~/.dotfiles"
+    username: mandlm
+    password: $6$hfdjshdfkajdsh$DRgmUOQfm9DnvSv.l.WuQJpextzBpX5BCbSncXTts5dHazvKRxj8qUYAjju2/AGZqKOt8PTLC7w9yRR68ZHCG1
+    dotfiles: "~/.dotfiles"
 
   become: yes
 
@@ -22,6 +22,7 @@
     - cups
     - docker
     - xorg
+    - gnome-keyring
     - aur-builder
     - zoom
     - git-flow
@@ -30,8 +31,8 @@
   tasks:
     - name: Install common user applications
       package:
-          name: "{{ item }}"
-          state: latest
+        name: "{{ item }}"
+        state: latest
       loop:
         - element-desktop
         - firefox

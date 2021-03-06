@@ -1,0 +1,7 @@
+---
+- name: install packages
+  package:
+    name:
+      - gnome-keyring
+      - libsecret
+    state: latest
