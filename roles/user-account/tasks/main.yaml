@@ -91,6 +91,21 @@
       permissions: r
       state: present
 
+- name: ensure i3 config-dir exists
+  become_user: "{{ account.name }}"
+  file:
+      path: "/home/{{ account.name }}/.config/i3"
+      state: directory
+      mode: "0700"
+
+- name: install i3 config
+  become_user: "{{ account.name }}"
+  copy:
+      src: i3/config
+      dest: "/home/{{ account.name }}/.config/i3/config"
+      mode: "0644"
+      force: no
+
 - name: ensure i3status config-dir exists
   become_user: "{{ account.name }}"
   file:
@@ -104,4 +119,5 @@
       src: i3status/config
       dest: "/home/{{ account.name }}/.config/i3status/config"
       mode: "0644"
+      force: yes
 
