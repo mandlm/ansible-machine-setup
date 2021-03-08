@@ -27,6 +27,7 @@
     - zoom
     - git-flow
     - slack
+    - teamviewer
 
   tasks:
     - name: Install common user applications

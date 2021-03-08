@@ -1,0 +1,7 @@
+---
+- name: install package
+  aur:
+    name: teamviewer
+    state: latest
+  become: yes
+  become_user: "{{ aur_builder.name }}"
