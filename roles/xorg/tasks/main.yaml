@@ -14,10 +14,18 @@
     - i3-wm
     - i3status
     - xautolock
-    - i3lock
     - dmenu
     - alacritty
     - flameshot
+
+- name: install AUR packages
+  aur:
+    name: "{{ item }}"
+    state: latest
+  become: yes
+  become_user: "{{ aur_builder.name }}"
+  loop:
+    - i3lock-fancy-multimonitor
 
 - name: configure sddm
   ini_file:

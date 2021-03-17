@@ -18,7 +18,7 @@ font pango:DejaVu Sans Mono 11
 default_border pixel 1
 
 # Set lock screen
-exec --no-startup-id xautolock -time 20 -locker 'i3lock --color=000000' &
+exec --no-startup-id xautolock -time 20 -locker 'i3lock-fancy-multimonitor --no-text --blur=0x6' &
 
 # Use pactl to adjust volume in PulseAudio.
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%

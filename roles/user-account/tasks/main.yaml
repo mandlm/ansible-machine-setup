@@ -1,123 +1,129 @@
 ---
 - name: setup user account
   user:
-      name: "{{ username }}"
-      password: "{{ password }}"
-      create_home: yes
-      state: present
-      update_password: always
+    name: "{{ username }}"
+    password: "{{ password }}"
+    create_home: yes
+    state: present
+    update_password: always
   register: account
 
 - name: ensure .ssh exists
   become_user: "{{ account.name }}"
   file:
-      path: "/home/{{ account.name }}/.ssh"
-      state: directory
-      mode: "0700"
+    path: "/home/{{ account.name }}/.ssh"
+    state: directory
+    mode: "0700"
 
 - name: copy ssh key
   become_user: "{{ account.name }}"
   copy:
-      src: "ssh/"
-      dest: "/home/{{ account.name }}/.ssh/"
-      mode: "0600"
+    src: "ssh/"
+    dest: "/home/{{ account.name }}/.ssh/"
+    mode: "0600"
 
 - name: ensure .gnupg exists
   become_user: "{{ account.name }}"
   file:
-      path: "/home/{{ account.name }}/.gnupg"
-      state: directory
-      mode: "0700"
+    path: "/home/{{ account.name }}/.gnupg"
+    state: directory
+    mode: "0700"
 
 - name: copy gpg keys
   become_user: "{{ account.name }}"
   copy:
-      src: "gnupg/"
-      dest: "/home/{{ account.name }}/.gnupg/"
-      mode: "0600"
+    src: "gnupg/"
+    dest: "/home/{{ account.name }}/.gnupg/"
+    mode: "0600"
 
 - name: set gpg-agent pinentry-program
   become_user: "{{ account.name }}"
   lineinfile:
-      path: "/home/{{ account.name }}/.gnupg/gpg-agent.conf"
-      regexp: "^pinentry-program "
-      line: "pinentry-program /usr/bin/pinentry-gtk-2"
-      mode: 0644
-      create: yes
+    path: "/home/{{ account.name }}/.gnupg/gpg-agent.conf"
+    regexp: "^pinentry-program "
+    line: "pinentry-program /usr/bin/pinentry-gtk-2"
+    mode: 0644
+    create: yes
 
 - name: set gpg-agent max-cache-ttl
   become_user: "{{ account.name }}"
   lineinfile:
-      path: "/home/{{ account.name }}/.gnupg/gpg-agent.conf"
-      regexp: "^max-cache-ttl "
-      line: "max-cache-ttl 60480000"
+    path: "/home/{{ account.name }}/.gnupg/gpg-agent.conf"
+    regexp: "^max-cache-ttl "
+    line: "max-cache-ttl 60480000"
 
 - name: set gpg-agent default-cache-ttl
   become_user: "{{ account.name }}"
   lineinfile:
-      path: "/home/{{ account.name }}/.gnupg/gpg-agent.conf"
-      regexp: "^default-cache-ttl "
-      line: "default-cache-ttl 60480000"
+    path: "/home/{{ account.name }}/.gnupg/gpg-agent.conf"
+    regexp: "^default-cache-ttl "
+    line: "default-cache-ttl 60480000"
 
 - name: setup xprofile
   become_user: "{{ account.name }}"
   lineinfile:
-      path: "/home/{{ account.name }}/.xprofile"
-      regexp: "^xsetroot "
-      line: "xsetroot -solid \"#000000\""
-      mode: 0644
-      create: yes
+    path: "/home/{{ account.name }}/.xprofile"
+    regexp: "^xsetroot "
+    line: 'xsetroot -solid "#000000"'
+    mode: 0644
+    create: yes
 
 - name: install user icon
   become_user: "{{ account.name }}"
   copy:
-      src: face.icon
-      dest: "/home/{{ account.name }}/.face.icon"
-      mode: "0644"
+    src: face.icon
+    dest: "/home/{{ account.name }}/.face.icon"
+    mode: "0644"
 
 - name: grant sddm read permission to home
   acl:
-      path: "/home/{{ account.name }}/"
-      entity: sddm
-      etype: user
-      permissions: x
-      state: present
+    path: "/home/{{ account.name }}/"
+    entity: sddm
+    etype: user
+    permissions: x
+    state: present
 
 - name: grant sddm read permission user icon
   acl:
-      path: "/home/{{ account.name }}/.face.icon"
-      entity: sddm
-      etype: user
-      permissions: r
-      state: present
+    path: "/home/{{ account.name }}/.face.icon"
+    entity: sddm
+    etype: user
+    permissions: r
+    state: present
 
 - name: ensure i3 config-dir exists
   become_user: "{{ account.name }}"
   file:
-      path: "/home/{{ account.name }}/.config/i3"
-      state: directory
-      mode: "0700"
+    path: "/home/{{ account.name }}/.config/i3"
+    state: directory
+    mode: "0700"
 
 - name: install i3 config
   become_user: "{{ account.name }}"
   copy:
-      src: i3/config
-      dest: "/home/{{ account.name }}/.config/i3/config"
-      mode: "0644"
-      force: no
+    src: i3/config
+    dest: "/home/{{ account.name }}/.config/i3/config"
+    mode: "0644"
+    force: no
 
 - name: ensure i3status config-dir exists
   become_user: "{{ account.name }}"
   file:
-      path: "/home/{{ account.name }}/.config/i3status"
-      state: directory
-      mode: "0700"
+    path: "/home/{{ account.name }}/.config/i3status"
+    state: directory
+    mode: "0700"
 
 - name: install i3status config
   become_user: "{{ account.name }}"
   copy:
-      src: i3status/config
-      dest: "/home/{{ account.name }}/.config/i3status/config"
-      mode: "0644"
-      force: yes
+    src: i3status/config
+    dest: "/home/{{ account.name }}/.config/i3status/config"
+    mode: "0644"
+    force: yes
 
+- name: configure i3lock
+  become_user: "{{ account.name }}"
+  lineinfile:
+    path: "/home/{{ account.name }}/.config/i3/config"
+    regexp: "xautolock"
+    line: "exec --no-startup-id xautolock -time 20 -locker 'i3lock-fancy-multimonitor --no-text --blur=0x6' &"
