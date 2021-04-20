@@ -17,6 +17,7 @@
     - dmenu
     - alacritty
     - flameshot
+    - unclutter
 
 - name: install AUR packages
   aur:

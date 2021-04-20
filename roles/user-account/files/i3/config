@@ -20,6 +20,9 @@ default_border pixel 1
 # Set lock screen
 exec --no-startup-id xautolock -time 20 -locker 'i3lock-fancy-multimonitor --no-text --blur=0x6' &
 
+# Auto-hide mouse cursor
+exec --no-startup-id unclutter --timeout 2 &
+
 # Use pactl to adjust volume in PulseAudio.
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
