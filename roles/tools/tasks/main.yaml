@@ -5,6 +5,7 @@
       state: latest
   loop:
     - cmake
+    - rsync
     - tree
     - unzip
     - yarn
